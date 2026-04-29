@@ -317,7 +317,7 @@ module GTmodeProject::TopRoot
 
         if (DiscountModule::DiscountData.defined("discount_week%{main::game.calendar.getElapsedWeek(100)}"));
         {
-            [discount_tuner, discount_pricemult] = DiscountModule::DiscountData["discount_week%{main::game.calendar.getElapsedWeek(100)}"];
+            |discount_tuner, discount_pricemult| = DiscountModule::DiscountData["discount_week%{main::game.calendar.getElapsedWeek(100)}"];
             var widget_name = NationData[discount_tuner];
             if (widget_name != nil)
             {

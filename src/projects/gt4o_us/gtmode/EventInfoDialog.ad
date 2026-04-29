@@ -111,7 +111,7 @@ module GTmodeProject::EventInfoDialog
 
             for (var i = 0; i < regs.size; i++)
             {
-                var [reg_category, reg_direction, reg_value] = regs[i].split(";");
+                |var reg_category, var reg_direction, var reg_value| = regs[i].split(";");
                 var reg_value_int = -1;
                 var comparison; // Comparison is violation, so the opposite of the check
 
@@ -122,14 +122,14 @@ module GTmodeProject::EventInfoDialog
                         continue;
 
                 var stat_to_compare = nil;
-                var [text, val] = nil;
+                |var text, var val| = nil;
 
                 // Expanding the CarType restriction to allow events that require rally or tuner cars
                 if (reg_category == "CarType")
                 {
                     custom_category_event = true;
                     stat_to_compare = main::menu::MCarData::GetCategory(riding_car.car_code);
-                    [text, val] = ["CarTypeSpec", context.translate(ROOT, "CarTypeSpec_4")];
+                    |text, val| = ["CarTypeSpec", context.translate(ROOT, "CarTypeSpec_4")];
 
                     // Custom edge case that will only be used for tuning champ for now, clean up later
                     if (reg_direction == "InList")
@@ -148,7 +148,7 @@ module GTmodeProject::EventInfoDialog
                             }
                         }
 
-                        [text, val] = ["CarTypeSpec", context.translate(ROOT, "CarTypeSpec_6")];
+                        |text, val| = ["CarTypeSpec", context.translate(ROOT, "CarTypeSpec_6")];
                     }
                 }
 
@@ -157,7 +157,7 @@ module GTmodeProject::EventInfoDialog
                     stat_to_compare = main::menu::MCarData::GetPrice(riding_car.car_code);
 
                     var money = main::menu::MUtility::GetMoneyString(reg_value);
-                    [text, val] = reg_direction == "Above" ? ["Minimum\nBase Price", money + " Cr."] : ["Maximum\nBase Price", money + " Cr."];
+                    |text, val| = reg_direction == "Above" ? ["Minimum\nBase Price", money + " Cr."] : ["Maximum\nBase Price", money + " Cr."];
                 }
 
                 if (reg_category == "Weight")
@@ -166,7 +166,7 @@ module GTmodeProject::EventInfoDialog
                     if (stat_to_compare.endWith("kg")) 
                         stat_to_compare = stat_to_compare.substr(0, stat_to_compare.size - 2).toInt();
 
-                    [text, val] = reg_direction == "Above" ? ["Minimum\nWeight", reg_value + "kg"] : ["Maximum\nWeight", reg_value + "kg"];
+					|text, val| = reg_direction == "Above" ? ["Minimum\nWeight", reg_value + "kg"] : ["Maximum\nWeight", reg_value + "kg"];
                 }
 
                 if (reg_category == "Power")
@@ -175,7 +175,7 @@ module GTmodeProject::EventInfoDialog
 
                     var ps_string = "%d %s".format(main::menu::MUnit::GetPowerForDisplay(reg_value).toInt(), main::menu::MUnit::GetUnitOfPower());
 
-                    [text, val] = reg_direction == "Above" ? ["Minimum\nPower", ps_string] : ["Maximum\nPower", ps_string];
+                    |text, val| = reg_direction == "Above" ? ["Minimum\nPower", ps_string] : ["Maximum\nPower", ps_string];
                 }
 
                 if (reg_category == "Displacement")
@@ -186,7 +186,7 @@ module GTmodeProject::EventInfoDialog
                     if (riding_car.getCatEngineType().beginWith("Rot"))
                     {
                         stat_to_compare = stat_to_compare.substr(0, stat_to_compare.size - 2); // Remove cc
-                        var [cc, mult] = stat_to_compare.split("x"); // e.g. 654x2 should become 654 * 2
+                        |var cc, var mult| = stat_to_compare.split("x"); // e.g. 654x2 should become 654 * 2
                         stat_to_compare = cc.toInt() * mult.toInt();
                     }
                     else 
@@ -195,7 +195,7 @@ module GTmodeProject::EventInfoDialog
                             stat_to_compare = stat_to_compare.substr(0, stat_to_compare.size - 2).toInt();
                     }
 
-                    [text, val] = reg_direction == "Above" ? [context.translate(ROOT, "MinDisp"), reg_value + "cc"] : [context.translate(ROOT, "MaxDisp"), reg_value + "cc"];
+                    |text, val| = reg_direction == "Above" ? [context.translate(ROOT, "MinDisp"), reg_value + "cc"] : [context.translate(ROOT, "MaxDisp"), reg_value + "cc"];
                 }
 
                 if (reg_category == "EngineType")
@@ -228,7 +228,7 @@ module GTmodeProject::EventInfoDialog
 
                     disp_text += "\n(Your engine: %{riding_car.getCatEngineType()})";
 
-                    [text, val] = ["Engine Type", disp_text];
+                   |text, val| = ["Engine Type", disp_text];
                 }
 
                 switch (reg_direction.downcase())
@@ -256,7 +256,7 @@ module GTmodeProject::EventInfoDialog
                 if (reg_value.downcase() == "rally")
                 {
                     comparison = !isCarInCategory(riding_car.car_code, reg_value.downcase());
-                    [text, val] = ["CarTypeSpec", context.translate(ROOT, "CarTypeSpec_5")];
+                    |text, val| = ["CarTypeSpec", context.translate(ROOT, "CarTypeSpec_5")];
                 }
                 
                 add_regulation_row(context, box, text, val, comparison);
@@ -296,7 +296,7 @@ module GTmodeProject::EventInfoDialog
         if (race.getNeedCountryID() != 0 && !is_kaizo)
             add_regulation_row(context, box, "NeedNation", context.translate(ROOT, "NeedNation_" + race.getNeedCountryID()), regulation.country != nil);
 
-        var [min, max] = race.getNeedYearRange();
+        |var min, var max| = race.getNeedYearRange();
         if ((min > 0 || max > 0) && !is_kaizo)
         {
             var doc = min > 0 ? context.translate(ROOT, "NeedYearDoc").format(min, max)
@@ -503,7 +503,7 @@ module GTmodeProject::EventInfoDialog
 
             case PS2_PAD_CTRL_R1:
                 
-                var [achieve, score] = getRaceEventRecordStatistics();
+                |var achieve, var score| = getRaceEventRecordStatistics();
 
                 // This allows you to use illegal cars in races IF you have completed the event already and are over 20% completion
                 // Does not allow you to skip tire regs as entering dirt/snow tracks with road tires is unknown behaviour

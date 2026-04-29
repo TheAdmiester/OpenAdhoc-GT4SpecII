@@ -151,7 +151,7 @@ module GTmodeProject
 
         for (var i = 0; i < settings.size; i++)
         {
-            var [k, v] = settings[i].split("=");
+            |var k, var v| = settings[i].split("=");
             switch (k)
             {
                 case "r":
@@ -258,7 +258,7 @@ module GTmodeProject
 
         main::game.major_menu_project = "gtmode";
 
-        var [achievement, score] = getRaceEventRecordStatistics();
+        |var achievement, var score| = getRaceEventRecordStatistics();
         if (achievement < 250.0)
             main::game.met_type = 0;
         else if (achievement < 500.0)
@@ -965,7 +965,7 @@ module GTmodeProject
         if (canSkipRegs(race_code))
             return true;
             
-        var [success, tire] = setLimitedTire(main::game.garage.riding_car, race_code, course_code);
+        |var success, var tire| = setLimitedTire(main::game.garage.riding_car, race_code, course_code);
         var tire_name = nil;
 
         if (tire != nil)
@@ -1293,7 +1293,7 @@ module GTmodeProject
 
     function canEntryEndurance()
     {
-        var [achieve, score] = getRaceEventRecordStatistics();
+        |var achieve, var score| = getRaceEventRecordStatistics();
         return achieve >= 200.0;
     }
 
@@ -1305,7 +1305,7 @@ module GTmodeProject
         if (race_code.beginWith("eventgen"))
             return false;
 
-        var [achieve, score] = getRaceEventRecordStatistics();
+        |var achieve, var score| = getRaceEventRecordStatistics();
         var code = extractSubRaceCode(race_code);
         var regulation = getViolatedRegulation(main::game.garage.riding_car, code[0]);
         var race = main::menu::MRaceData(code[0]);

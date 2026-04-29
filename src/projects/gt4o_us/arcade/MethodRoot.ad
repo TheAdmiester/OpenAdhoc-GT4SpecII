@@ -596,7 +596,7 @@ module ArcadeProject::MakerRoot
             else
             {
                 openProgressDialog(context, context.translate(ROOT, "MemoryCard", "now_loading"));
-                [r, game] = loadGameDataForTrade(context, manager);
+                |r, game| = loadGameDataForTrade(context, manager);
 
                 closeProgressDialog(context);
 

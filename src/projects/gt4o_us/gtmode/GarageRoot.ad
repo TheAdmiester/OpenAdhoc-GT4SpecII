@@ -437,7 +437,7 @@ module GTmodeProject::GarageRoot
 
         for (var i = 0; i < carList.size; i++)
         {
-            var [stat, car] = carList[i];
+            |var stat, var car| = carList[i];
             newList.push(car);
         }
 

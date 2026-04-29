@@ -146,7 +146,7 @@ module OptionProject
 
         for (var i = 0; i < settings.size; i++)
         {
-            var [k, v] = settings[i].split("=");
+            |var k, var v| = settings[i].split("=");
             switch (k)
             {
                 case "r":

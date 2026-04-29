@@ -21,7 +21,7 @@ function SaveKvp(context, key, value)
     var count = netcnf.GetList(0, "mc0:");
     for (var i = 0; i < count; i++)
     {
-        var [stat, net, ifc, dev] = netcnf.GetNetListEntry(i); // stat = result as int, net = "Combination1", ifc = empty? can't be fetched, dev = {vendor}/{product}
+        |var stat, var net, var ifc, var dev| = netcnf.GetNetListEntry(i); // stat = result as int, net = "Combination1", ifc = empty? can't be fetched, dev = {vendor}/{product}
         openConfirmDialog(context, 0, dev); 
     }
 }
@@ -38,8 +38,8 @@ function LoadKvp(context, key)
     var count = netcnf.GetList(0, "mc0:");
     for (var i = 0; i < count; i++)
     {
-        var [stat, net, ifc, dev] = netcnf.GetNetListEntry(i); // stat = result as int, net = "Combination1", ifc = empty? can't be fetched, dev = {vendor}/{product}
-        var [k, v] = dev.split("/");
+        |var stat, var net, var ifc, var dev| = netcnf.GetNetListEntry(i); // stat = result as int, net = "Combination1", ifc = empty? can't be fetched, dev = {vendor}/{product}
+        |var k, var v| = dev.split("/");
         openConfirmDialog(context, 0, "LoadKvp loop %{i}\ndev = %{dev}\nk = %{k}\nv = %{v}");
         if (k == key)
             return v;
