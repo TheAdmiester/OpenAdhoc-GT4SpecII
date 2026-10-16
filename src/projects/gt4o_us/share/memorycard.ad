@@ -167,7 +167,7 @@ function checkGameData(context, forceRetry, manager, slot)
         if (!manager.isConnect())
         {
             if (openConfirmDialog(context, forceRetry ? 2 : 1, 
-                translateMc(context, forceRetry ? "no_memory_card_retry_confirm" : "no_memory_card_retry?")).format(slot + 1))
+                translateMc(context, forceRetry ? "no_memory_card_retry_confirm" : "no_memory_card_retry?").format(slot + 1)))
                 continue;
             else
                 return nil;
