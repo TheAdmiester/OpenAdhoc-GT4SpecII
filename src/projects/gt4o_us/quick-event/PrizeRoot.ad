@@ -113,6 +113,18 @@ module RaceEventProject::PrizeRoot
             var distanceDriven = (quick_work.CourseLength.toFloat() / 1000.0) * main::game.overrideLaps();
             prize_amount = calcPrize(distanceDriven, finishPos);
         }
+        else if (main::game.overrideLaps() != -1)
+        {
+            // Lap multiplier active: scale the prize by the extra laps
+            var basePrize = quick_work.prize / quick_work.Laps;
+            var prize_mult = main::game.overrideLaps() / quick_work.Laps;
+            prize_amount = quick_work.prize * prize_mult;
+            print prize_amount;
+        }
+
+        // Drag race has no laps, use a flat prize
+        if (main::game.course_code == "lasvegas")
+            prize_amount = 2000;
 
         context.pushEvent(main::menu::MScriptEvent(context, ROOT, "doAction"));
     }

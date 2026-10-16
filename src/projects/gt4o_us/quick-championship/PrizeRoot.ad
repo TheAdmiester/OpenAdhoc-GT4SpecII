@@ -116,7 +116,7 @@ module ChampionshipProject::PrizeRoot
         if (!grand_prize_mode && main::game.overrideLaps() != -1)
         {
             var finishPos = order + 1;
-            
+            print "finishPos: %{finishPos}";
             var distanceDriven = (quick_work.CourseLength.toFloat() / 1000.0) * main::game.overrideLaps();
             prize_amount = calcPrize(distanceDriven, finishPos);
         }

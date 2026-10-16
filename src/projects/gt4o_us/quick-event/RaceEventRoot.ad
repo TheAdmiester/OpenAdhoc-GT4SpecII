@@ -90,13 +90,28 @@ module RaceEventProject::RaceEventRoot
             ROOT::ToolTip_Upper::Laps.text += context.translate(ROOT, "lap");
         }
 
-        // If we're in event gen then get the hacky overridden lap count instead
-        if (race_code.beginWith("eventgen"))
+        // Lap multiplier from the event hall settings popup (passed via LAN_auto_machine_num)
+        var overrideLapMult = main::game.option.LAN_auto_machine_num;
+
+        // If we're in event gen or using a lap multiplier then get the hacky overridden lap count instead
+        if (race_code.beginWith("eventgen") || main::game.overrideLaps() != -1 || overrideLapMult > 1)
         {
+            if (overrideLapMult > 1)
+                main::game.overrideLaps(quick_work.Laps * overrideLapMult);
+            else
+                main::game.option.LAN_auto_machine_num = 0;
+
             var laps = main::game.overrideLaps();
             ROOT::ToolTip_Upper::Laps.text = laps
             ROOT::ToolTip_Upper::Laps.text += context.translate(ROOT, "laps");
             ROOT::ToolTip_Upper::CourseLength.text = context.translate(ROOT, "course_length").format(main::menu::MUnit::GetCourseLengthString(quick_work.CourseLength)) + " (Total Length: %{main::menu::MUnit::GetCourseLengthString(quick_work.CourseLength * laps)})";
+        }
+
+        // Drag race: laps and length don't apply
+        if (course_label == "lasvegas")
+        {
+            ROOT::ToolTip_Upper::Laps.visible = false;
+            ROOT::ToolTip_Upper::CourseLength.visible = false;
         }
 
         main::sound.startStreamEx("pcm", "default_quick", -1, 1, main::game.option.menu_bgm_volume);

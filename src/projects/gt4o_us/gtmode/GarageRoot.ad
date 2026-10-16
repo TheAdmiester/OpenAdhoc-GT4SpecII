@@ -780,6 +780,27 @@ module GTmodeProject::GarageRoot
                 main::sound.play("ok");
                 QuickMenuPopup::open(context);
                 return EVENTRESULT_FILTER;
+
+            // Shoulder button shortcuts to the filter menus / car list
+            case PS2_PAD_CTRL_L1:
+                main::sound.play("cursor");
+                GarageRoot.setFocus(Focus::Nation::OptionMenu);
+                return EVENTRESULT_FILTER;
+
+            case PS2_PAD_CTRL_R1:
+                main::sound.play("cursor");
+                GarageRoot.setFocus(Focus::Manufacturer::OptionMenu);
+                return EVENTRESULT_FILTER;
+
+            case PS2_PAD_CTRL_L2:
+                main::sound.play("cursor");
+                GarageRoot.setFocus(Focus::DriveTrain::OptionMenu);
+                return EVENTRESULT_FILTER;
+
+            case PS2_PAD_CTRL_R2:
+                main::sound.play("cursor");
+                GarageRoot.setFocus(List::Cars::Line0);
+                return EVENTRESULT_FILTER;
         }
         return EVENTRESULT_CONTINUE;
     }
