@@ -409,9 +409,9 @@ module GTmodeProject
                     curr_car.setASCCSetting(0, global_asmo);
                 else
                 {
-                    // Weird off by one indexing?
-                    global_asmo += 1;
-                    curr_car.setASCCSetting(0, global_asmo);
+                    // ASCC setting is level + 1 (0 = off), same as setting/AIDRoot apply().
+                    // Don't write it back to global_asmo, or it creeps up on every refresh and gets saved
+                    curr_car.setASCCSetting(0, global_asmo + 1);
                 }
             }
 
@@ -421,8 +421,7 @@ module GTmodeProject
                     curr_car.setASCCSetting(1, global_asmu);
                 else
                 {
-                    global_asmu += 1;
-                    curr_car.setASCCSetting(1, global_asmu);
+                    curr_car.setASCCSetting(1, global_asmu + 1);
                 }
             }
 
