@@ -31,7 +31,7 @@ module FreeRunProject::RankingRoot
         {
             case PS2_PAD_CTRL_START:
                 main::sound.play("return");
-                PasscodePopup::open(context, current_unit, ScrollBox::SelectBox);
+                PasscodePopup::open(context, current_unit, ScrollBox::SelectBox.index);
                 return EVENTRESULT_FILTER; 
         }
 
