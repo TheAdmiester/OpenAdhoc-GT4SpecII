@@ -110,7 +110,7 @@ module OptionProject::ScreenRoot
 
         var option = main::game.option;
         sWide = option.wide_mode;
-        sHiVision = video_mode;
+        sHiVision = option.race_display_mode;
         sVertical = option.screen_adjust_v;
         sHorizontal = option.screen_adjust_h;
 
