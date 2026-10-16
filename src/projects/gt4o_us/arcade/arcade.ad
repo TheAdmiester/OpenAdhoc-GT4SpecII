@@ -56,6 +56,10 @@ module ArcadeProject
             {
                 if (current_game == "LANBattle" && !main::network.isRTIMEInitialized())
                 {
+                    // LAN session was lost (e.g. the other console disconnected mid-race). Tear the
+                    // network down fully like MatchingRoot.onCancel does, otherwise the interface stays
+                    // up, the next Connect skips setup and RTIME can't restart (silently back to title).
+                    shutdownLAN();
                     main::game.menuPop();
                     start_page = TopRoot;
                 }
@@ -77,6 +81,17 @@ module ArcadeProject
 
         main::game.major_menu_project = "arcade";
         render_context.startPage(start_page);
+    }
+
+    function shutdownLAN()
+    {
+        if (main::network.isNetworkInitialized())
+        {
+            main::network.exitCommunicator();
+            main::network.terminateRTIME();
+            main::network.terminateNetwork();
+        }
+        main::network.network_enable = false;
     }
 
     function onUnload(context)

@@ -118,8 +118,8 @@ module ArcadeProject::GameRoot
         PhotoMode.visible = false;
         SplitBattle.visible = false;
         LANBattle.insensitive = disable_lanbattle;
-        LANBattle.visible = false;//!disable_lanbattle;
-        LANBattleBG.visible = false;//!disable_lanbattle;
+        LANBattle.visible = !disable_lanbattle;
+        LANBattleBG.visible = !disable_lanbattle;
         SplitBattle.visible = !disable_lanbattle;
         TimeTrialBG.visible = !disable_lanbattle;
 
@@ -517,6 +517,10 @@ module ArcadeProject::GameRoot::LANBattle
             openConfirmDialog(context, 0, context.translate(ROOT, "You_need_NetworkAdaptor"));
             return EVENTRESULT_FILTER;
         }
+
+        // Leftover network from a lost session: start from a clean state
+        if (!main::network.isRTIMEInitialized())
+            shutdownLAN();
 
         main::sound.play("ok");
         current_game = "LANBattle";
