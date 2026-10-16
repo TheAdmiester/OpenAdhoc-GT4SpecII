@@ -72,7 +72,7 @@ files_to_compile:
     is_main: true
   - name: StatusRoot.ad
     is_main: true
-  - name: EyetoyRoot.ad
+  - name: EyeToyRoot.ad
     is_main: true
   - name: SettingPopup.ad
     is_main: true

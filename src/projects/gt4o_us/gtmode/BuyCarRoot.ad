@@ -618,7 +618,7 @@ module GTmodeProject::BuyCarRoot
 
             if (isMission)
             {
-                var [s0, s1] = event.split(",");
+                |var s0,  vars1| = event.split(",");
                 for (var i = s0.toInt(); i <= s1.toInt(); i++)
                 {
                     var unit = main::game.race_record.getUnit("l0m%04d".format(i));
@@ -639,7 +639,7 @@ module GTmodeProject::BuyCarRoot
             switch (criteria)
             {
                 case "achievement":
-                    var [achievement, score] = getRaceEventRecordStatistics();
+                    |var achievement, var score| = getRaceEventRecordStatistics();
                     criteriaMet = achievement > (event.toFloat()) * 10;
                     break;
 
@@ -875,9 +875,9 @@ module GTmodeProject::BuyCarRoot::Pane::Buy
         var res = nil;
         var debug_free = nil;
         if (current_type == "used")
-            [res, debug_free] = BuyCarDialog::open(context, current_gcar, 0, 0, 0,);
+            |res, debug_free| = BuyCarDialog::open(context, current_gcar, 0, 0, 0,);
         else
-            [res, debug_free] = BuyCarDialog::open(context, current_car, 0, 1, 1, current_car_available, discount_price); // Override the ability to purchase if the car has been won before
+            |res, debug_free| = BuyCarDialog::open(context, current_car, 0, 1, 1, current_car_available, discount_price); // Override the ability to purchase if the car has been won before
 
         if (res)
         {

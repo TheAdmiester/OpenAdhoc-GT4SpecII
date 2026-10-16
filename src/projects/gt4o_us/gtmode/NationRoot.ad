@@ -91,7 +91,7 @@ module GTmodeProject::NationRoot
         var usbcamera_connected = false;
 
         var nike_enabled = true;//usbcamera_connected || main::game.isCarAvailable("nike_one_04");
-        var [achieve, score] = getRaceEventRecordStatistics();
+        |var achieve, var score| = getRaceEventRecordStatistics();
         var pd_enabled = achieve == 1000.0 || haveWonMissionSequence(35, 40) || wonRace("en_nur24h_0001") || wonRace("ex_formula_1200") || wonRace("pr_gtworld_1000") || isCarOwned("formula_gran_turismo_04");
         var available_num = 0;
 

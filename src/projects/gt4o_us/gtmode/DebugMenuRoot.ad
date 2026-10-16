@@ -30,7 +30,7 @@ module GTmodeProject::DebugMenuRoot
 
     function adjustCredits(context, params)
     {
-        var [amount, set] = params;
+        |var amount, var set| = params;
 
         if (set == nil)
             set = false;

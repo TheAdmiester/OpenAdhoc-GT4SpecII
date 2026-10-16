@@ -121,7 +121,7 @@ module ArcadeProject::CourseRoot
 
     function getCourseNum(category, single_race, split_battle)
     {
-        var [crslist, allnum] = get_crslist(category, single_race, split_battle, 1);
+        |var crslist, var allnum| = get_crslist(category, single_race, split_battle, 1);
 
         return [crslist.size, allnum];
     }

@@ -193,7 +193,7 @@ module BootProject
         var settings = main::game.option.entrance_addr.split(";");
         for (var i = 0; i < settings.size; i++)
         {
-            var [k, v] = settings[i].split("=");
+            |var k, var v| = settings[i].split("=");
             print [k, v];
             switch (k)
             {
