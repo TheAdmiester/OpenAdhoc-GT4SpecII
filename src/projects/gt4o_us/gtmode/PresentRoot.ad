@@ -468,12 +468,12 @@ module GTmodeProject::PresentRoot::CarPane
         ColourName::label.actor.out = true;
         ColourName::label.actor.warp();
 
-        if (PresentData.defined("allcars_carnum"))
+        if (PresentData.defined("allcars_carlist"))
         {
             var prize_rand = randomizer_flag & FLAG_PRIZE_RANDOMIZER
             if (prize_rand)
             {
-                car = PresentData::allcars_carlist[main::menu::MRandom::GetValue(0, PresentData::allcars_carnum-1, fnv1a(main::game.username + race + func))];
+                car = PresentData::allcars_carlist[main::menu::MRandom::GetValue(0, PresentData::allcars_carlist.size, fnv1a(main::game.username + race + func))];
                 col = "-";
                 Shuffle.visible = true;
             }

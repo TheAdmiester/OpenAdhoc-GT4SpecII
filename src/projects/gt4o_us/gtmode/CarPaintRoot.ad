@@ -185,14 +185,14 @@ module GTmodeProject::CarPaintRoot::ColScroll::SelectBox
         var dialogText;
 
         if (ColScroll::Name.text == "" || ColScroll::Name.text.beginWith(" "))
-            dialogText = "Apply this colour\nAny installed rims or wings will be removed.";
+            dialogText = context.translate(ROOT, "ApplyPaintNoName");
         else
-            dialogText = "Apply the following colour:\n%{CarFace.car_data.getColorName(index)}\nAny installed rims or wings will be removed."
+            dialogText = context.translate(ROOT, "ApplyPaint").format(CarFace.car_data.getColorName(index));
 
         if (openConfirmDialog(context, 1, dialogText, "Confirm Purchase", "Buy"))
         {
             main::sound.play("buy");
-            copyGarageCar(context, index);
+            copyGarageCar(context, index, false);
             main::game.incMoney(-current_price);
 
             refreshRideCar(ROOT, context, true);

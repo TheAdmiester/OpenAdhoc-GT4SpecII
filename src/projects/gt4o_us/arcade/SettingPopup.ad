@@ -92,14 +92,12 @@ module ArcadeProject::SettingPopup
     tire_normal_options.push("tire_type_3");
     tire_normal_options.push("tire_type_4");
     tire_normal_options.push("tire_type_5");
-    // Disabled until quick-arcade is reversed as we want the tire options to remain consistent between this menu and Quick Tune-up
-    /*
+    // Enabled in shipped 1.10
     tire_normal_options.push("tire_type_6");
     tire_normal_options.push("tire_type_7");
     tire_normal_options.push("tire_type_8");
     tire_normal_options.push("tire_type_9");
     tire_normal_options.push("tire_type_10");
-    */
 
     static tire_racing_options = [];
     tire_racing_options.push("tire_type_6");

@@ -55,6 +55,7 @@ module GTmodeProject::EventInfoDialog
         cars_allowed_row = nil;
         Pane::Title::label.text = getEventNameByRaceCode(context, ROOT, event.race_code);
         Pane::VBox::RegulationHeader::label.adjustScale();
+        Pane::VBox::RegulationHeader::label2.adjustScale();
 
         var code = extractSubRaceCode(event.race_code);
         var series = getSeriesRaceCount(event.race_code);
@@ -336,6 +337,12 @@ module GTmodeProject::EventInfoDialog
         else
             add_regulation_row(context, box, "LicenseRequired", context.translate(ROOT, "NeedLicense_" + race.getNeedLicense()), license_violated);
 
+        // Show the "R1 to skip regulations" hint only when a skip is possible and needed
+        if (!canSkipRegs(event.race_code) || !(violated || custom_reg_violated))
+            Pane::VBox::RegulationHeader::label2.visible = false;
+        else
+            Pane::VBox::RegulationHeader::label2.visible = true;
+
         box.adjustSize();
         Pane::VBox::Regulation.updateGeometry();
     }
@@ -502,27 +509,16 @@ module GTmodeProject::EventInfoDialog
                 return EVENTRESULT_FILTER;
 
             case PS2_PAD_CTRL_R1:
-                
-                var [achieve, score] = getRaceEventRecordStatistics();
-
-                // This allows you to use illegal cars in races IF you have completed the event already and are over 20% completion
-                // Does not allow you to skip tire regs as entering dirt/snow tracks with road tires is unknown behaviour
-                // TODO: Uncomment for release
-                if (wonRace(event.race_code) && achieve >= 200.0)
+                // Skip regulations for events already won at >= 20% completion (see canSkipRegs)
+                if (canSkipRegs(event.race_code))
                 {
-                    var code = extractSubRaceCode(event.race_code);
-                    var regulation = getViolatedRegulation(main::game.garage.riding_car, code[0]);
-
-                    if (regulation.tiretype != nil)
-                        return EVENTRESULT_FILTER;
-
                     main::sound.play("ok");
                     result = true;
                     close(context);
                     return EVENTRESULT_FILTER;
                 }
-                else 
-                    logInfo("Cannot skip event requirements. wonRace(%{event.race_code}) == %{wonRace(event.race_code)}, achieve = %{achieve}");
+
+                return EVENTRESULT_CONTINUE;
         }
 
         return EVENTRESULT_CONTINUE;

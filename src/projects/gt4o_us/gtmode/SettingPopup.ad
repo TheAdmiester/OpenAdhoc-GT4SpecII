@@ -213,8 +213,6 @@ module GTmodeProject::SettingPopup::Pane::LengthMult::slider
             EventCourseRoot::FG2::score.text = context.translate(EventCourseRoot, "RaceLapsFormat").format(racedata.getNumberOfLaps() * slider.index);
         }
 
-        // Hijacking another options field to use as a cross-project variable
-        main::game.option.LAN_auto_machine_num = slider.index;
     }
 }
 
@@ -237,6 +235,11 @@ module GTmodeProject::SettingPopup::Pane::Button::OK
 
     function onActivate(context, event, item)
     {
+        // Only commit the lap multiplier on OK so Cancel doesn't leave it applied.
+        // Hijacking another options field to use as a cross-project variable
+        if (Pane::LengthMult.visible)
+            main::game.option.LAN_auto_machine_num = Pane::LengthMult::slider.index;
+
         if (go_func != nil)
             go_func(context, Difficulty::slider.index, Laps::slider.index, AllCategories::OptionMenu.index);
 
